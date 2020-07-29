@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 	    Model::unguard();
 	 
 	 	$this->call(UserSeeder::class);
+        $this->call(NoteSeeder::class);
 	 
 	    // Enable mass assignment restrictions
 	    Model::reguard();
