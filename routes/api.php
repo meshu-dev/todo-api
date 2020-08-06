@@ -27,4 +27,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 Route::get('/', 'HomeController@apiIndex');
+
+Route::get('/login', 'HomeController@apiIndex');
 Route::post('/login', 'AuthController@login');
