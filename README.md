@@ -1,4 +1,4 @@
-# ToDo API
+# Todo API
 
 An api used to create, edit and view simple todo notes, this app uses Laravel Sanctum with API token authentication. 
 
