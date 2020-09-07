@@ -3,76 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Note;
 
 class NoteController extends Controller
 {
-    private $model;
+    private Note $model;
 
     public function __construct(Note $model)
     {
         $this->model = $model;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): Collection
     {
         return $this->model->take(10)->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): Note
     {
+        $request->validate($this->getValidationRules());
+
         return $this->model->create([
             'title' => $request->title,
             'text' => $request->text
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(int $id): Note
     {
         return $this->model->findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
-        return $this->model->where('id', $id)
+        $request->validate($this->getValidationRules());
+
+        $this->model->where('id', $id)
           ->update([
             'title' => $request->title,
             'text' => $request->text
           ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
-        return $this->model->destroy($id);
+        $this->model->destroy($id);
+    }
+
+    public function getValidationRules(): array
+    {
+        return [
+            'title' => 'required|min:3|max:255',
+            'text' => 'required|min:3|max:500'
+        ];
     }
 }

@@ -3,11 +3,12 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request): Response
     {
 	    $data = $request->validate([
 	        'email' => 'required|email',
