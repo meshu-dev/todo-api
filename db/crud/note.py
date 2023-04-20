@@ -31,15 +31,19 @@ def edit_note(id: int, title: str, text: str, is_done: bool = False):
 
     return note
 
-def get_note(id):
+def get_note(id: int):
     note = session.query(Note).filter_by(id=id).first()
+    return note
+
+def get_note_by_name(title: str):
+    note = session.query(Note).filter_by(title=title).first()
     return note
 
 def get_all_notes():
     notes = session.query(Note).all()
     return notes
 
-def delete_note(id):
+def delete_note(id: int):
     note = session.query(Note).filter_by(id=id).first()
 
     session.delete(note)

@@ -16,7 +16,7 @@ def add_tag(name: str):
     session.add(tag)
     session.commit()
 
-    return note
+    return tag
 
 def edit_tag(id: int, name: str):
     tag = session.query(Tag).filter_by(id=id).first()
@@ -29,6 +29,10 @@ def edit_tag(id: int, name: str):
 
 def get_tag(id):
     tag = session.query(Tag).filter_by(id=id).first()
+    return tag
+
+def get_tag_by_name(name):
+    tag = session.query(Tag).filter_by(name=name).first()
     return tag
 
 def get_all_tags():

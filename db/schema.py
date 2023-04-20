@@ -3,6 +3,7 @@ from pydantic import BaseModel
 class NewNote(BaseModel):
     title: str
     text: str
+    tags: list
 
     class Config:
         orm_mode = True
