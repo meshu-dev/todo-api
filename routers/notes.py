@@ -1,14 +1,14 @@
 from fastapi import APIRouter, status, HTTPException
 from typing import Optional, List
-from db.crud import add_note, get_all_notes, get_note, edit_note, delete_note
-from db.schema import NewNote, Note, Tag
+from db.crud.note import add_note, get_all_notes, get_note, edit_note, delete_note
+from db.schema import NewNote, EditNote, Note
 
 router = APIRouter(
-    prefix="/notes",
-    tags=["notes"]
+    prefix='/notes',
+    tags=['notes']
 )
 
-@router.post('/', tags=['Post'], response_model=NewNote, status_code=status.HTTP_201_CREATED)
+@router.post('/', tags=['Post'], response_model=Note, status_code=status.HTTP_201_CREATED)
 def add_new_note(note: NewNote):
     note = add_note(
         title=note.title,
@@ -34,7 +34,7 @@ def get_note_by_id(id: int):
     return note
 
 @router.put('/{id}', tags=['Put'], response_model=Note, status_code=status.HTTP_200_OK)
-def edit_note_by_id(id: int, note: Note):
+def edit_note_by_id(id: int, note: EditNote):
     note = edit_note(
         id=id,
         title=note.title,

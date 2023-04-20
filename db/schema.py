@@ -7,7 +7,7 @@ class NewNote(BaseModel):
     class Config:
         orm_mode = True
 
-class Note(BaseModel):
+class EditNote(BaseModel):
     title: str
     text: str
     is_done: bool
@@ -15,8 +15,25 @@ class Note(BaseModel):
     class Config:
         orm_mode = True
 
-class Tag(BaseModel):
+class Note(BaseModel):
+    id: int
+    title: str
+    text: str
+    is_done: bool
+
+    class Config:
+        orm_mode = True
+
+class TagData(BaseModel):
     name: str
 
     class Config:
         orm_mode = True
+
+class Tag(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
